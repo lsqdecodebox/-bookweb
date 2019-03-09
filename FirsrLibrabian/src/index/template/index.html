@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+	<head>  
+		<title> FirstLibrarian </title>
+	</head>
+	<h2 align="center" > Welcome to FirstLibrarian !</h2>
+	
+	<body>
+		<br/>
+		<fieldset>	
+			<legend><a href="{%url 'LibNews' %}">新闻</a></legend><br/>
+			{% for news in libnews %}
+			<a href="{{news.link}}"> {{news.title}} </a><br/>
+			{% endfor %}
+			<br/>
+		</fieldset>
+		<br/>
+		
+		<form action="{% url 'index' %}" method="post">
+		{% csrf_token %}
+			<fieldset>
+				<legend>搜搜: </legend><br/>
+				<input type="text" name="search" /> "回车搜索" <br/><br/>
+			</fieldset>
+		</form>
+		<br/>
+		
+		<fieldset>
+		<legend>图书目录</legend><br/>
+		<table cellpadding="10" width="100%">
+			<tr>
+			<td>序号</td>
+			<td>书名</td>
+			<td>出版社</td>
+			<td>作者</td>
+			<td>出版日期</td>
+			<td>价格</td>
+			<td>链接</td>
+			</tr>
+			{% for book in bookresult %}
+				<tr>
+				<td> {{ book.nid }} </td>
+				<td> {{ book.title}} </td>
+				<td> {{ book.publish }} </td>
+				<td> {{ book.authors_name}} </td>
+				<td> {{ book.pub_date | default:''}} </td>
+				<td> {{ book.price | default:'' }} </td>
+				<td> {{ book.link }} </td>
+				</tr>		
+			{% endfor %}
+		</table>
+		</fieldset>
+		
+		<br/><br/><a href="{% url 'Librabian' %}">管理员入口</a><br/><br/><br/><br/><br/>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>图书信息修改页面</title>
+	</head>
+	
+	<body>
+		<br/>
+		<form action="{% url 'modbook' %}" method="post">
+		{% csrf_token %}
+			<fieldset>
+				<legend>图书修改</legend><br/><br/>
+				序号:<input type="number" name="nid" value="{{bookalter.nid}}" readonly/> <br/><br/>
+				书名:<input type="text" name="title" style="width:15%" value="{{bookalter.title}}"  /> <br/><br/>
+				出版社:<input type="text" name="publish" style="width:20%" value="{{bookalter.publish}}" /> <br/><br/>
+				作者:<input type="text" name="authors_name" value="{{bookalter.authors_name}}" /> <br/><br/>
+				出版日(YYYY-MM-DD):<input type="date" name="pub_date" value="{{bookalter.date}}"  /> <br/><br/>
+				价格:<input type="number" name="price"  value="{{bookalter.price}}" /> <br/><br/>	
+				链接:<input type="url" name="link" style="width:30%" value="{{bookalter.price}}" /> <br/><br/>								
+					<input type ="submit" value="提交" /> <br/><br/>
+			</fieldset>
+		</form>
+		
+			{% if messages %}
+       		 	<script>
+	        	 	{% for msg in messages %}
+	             	alert('{{ msg.message }}');
+	          		{% endfor %}
+       		 	</script>
+    		{% endif %}<br/><br/>
+    		
+		<br/><br/><a href="{% url 'libconduct' %}"  >返回</a><br/><br/><br/><br/><br/><br/>
+		
+	</body>
+</html>
+

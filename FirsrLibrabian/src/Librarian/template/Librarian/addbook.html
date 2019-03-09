@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% csrf_token %}
+<html>
+	<head>
+		<title>图书信息录入页面</title>
+	</head>
+	
+	<body>
+		<br/>
+		<form action="{% url 'addbook' %}" method="post">
+			{% csrf_token %}
+			<fieldset>
+				<legend>录入图书</legend><br/><br/>
+				书名:<input type="text" name="title" /> <br/><br/>
+				出版社:<input type="text" name="publish" style="width:20%"/> <br/><br/>
+				作者:<input type="text" name="authors_name" /> <br/><br/>
+				出版日期:<input type="date" name="pub_date" /> <br/><br/>
+				价格:<input type="number" name="price" /> <br/><br/>	
+				链接:<input type="url" name="link" style="width:80%" /> <br/><br/>								
+					<input type ="submit" value="提交" /> <br/><br/>
+			</fieldset>
+		</form>
+		
+		{% if messages %}
+	        <script>
+	         {% for msg in messages %}
+	             alert('{{ msg.message }}');
+	          {% endfor %}
+	       </script>
+	    {% endif %}
+	    
+		<br/><br/><br/><br/><a href="{% url 'libconduct' %}"  >返回</a><br/><br/><br/><br/><br/><br/>
+	</body>
+</html>
+

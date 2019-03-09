@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+	<head>  
+		<title> FirstLibrarian </title>
+	</head>
+	
+	<body>
+		<br/><br/>
+		<form action="{% url 'newsedit' %}"  method="post">
+		<fieldset>	{% csrf_token %}	
+			<legend><a href="{%url 'LibNews' %}">新闻</a></legend><br/>
+			<table cellpadding="5" width="100%">
+				<tr>
+				<td>标题</td>
+				<td>链接</td>
+				</tr>
+				{% for news in newstable %}
+					<tr>		
+					<td><input type="text" name="title{{news.id}}" value="{{news.title}}" style="width:80%"/> </td>
+					<td><input type="url" name="link{{news.id}}" value="{{news.link}}" style="width:100%" /> </td>
+					</tr>
+				{% endfor %}
+					<tr>		
+					<td><input type="text" name="title" value="{{news.title}}" style="width:80%" /> </td>
+					<td><input type="url" name="link" value="{{news.link}}" style="width:100%" /> </td>
+					</tr>
+				<input type="submit" value="修改">
+			</table>
+		</fieldset>
+		</form>
+		
+		<br/><br/><a href="{% url 'libconduct' %}"  >返回</a><br/><br/><br/><br/><br/><br/>
+	</body>
+</html>

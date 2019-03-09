@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% csrf_token %}
+<html>
+	<head>
+		<title>图书管理员</title>
+	</head>
+	<body>
+	<legend>管理员界面</legend><br/>
+		<a href="{% url 'addbook' %}">增加书目 </a><br/><br/>
+	
+
+		<form action="{% url 'libconduct' %}" method="post">
+		{% csrf_token %}
+			<fieldset>
+				<legend></legend><br/>
+				搜搜: <input type="text" name="search" /> “回车搜索”<br/><br/>
+			</fieldset>
+		</form>
+		
+		<form action="{% url 'modbook' %}"  method="post">
+		<br/>{% csrf_token %}
+		<fieldset>
+		<legend>图书目录</legend><br/>
+		<table cellpadding="10" width="100%">
+			<tr>
+			<td> </td>
+			<td>序号</td>
+			<td>书名</td>
+			<td>出版社</td>
+			<td>作者</td>
+			<td>出版日期</td>
+			<td>价格</td>
+			<td>链接</td>
+			</tr>
+			{% for book in bookresult %}
+				<tr>
+				<td><input type="radio" name="nid" value="{{ book.nid }}"></td>
+				<td> {{ book.nid }} </td>
+				<td> {{ book.title}} </td>
+				<td> {{ book.publish }} </td>
+				<td> {{ book.authors_name}} </td>
+				<td> {{ book.pub_date | default:''}} </td>
+				<td> {{ book.price | default:'' }} </td>
+				<td> {{ book.link }} </td>
+				</tr>		
+			{% endfor %}
+			<input type="submit" value="修改书目">
+		</table>
+		</fieldset>
+		</form>
+		
+	{% if messages %}
+        <script>
+         {% for msg in messages %}
+             alert('{{ msg.message }}');
+          {% endfor %}
+       </script>
+    {% endif %}
+    
+    <br/><br/><a href="{% url 'newsedit' %}">新闻编辑</a><br/><br/>
+
+	
+	<br/><br/><a href="{% url 'Librabian' %}"  >返回</a><br/><br/><br/><br/><br/><br/>
+	</body>
+</html>
+
