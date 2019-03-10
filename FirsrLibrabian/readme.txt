@@ -6,6 +6,9 @@
 	管理员账户
 	新闻链接
 
+
+增加css、javascript
+
 中间件过滤机制正在设计中，mymiddlefilter.py
 电子书格式转换器 设计中
 

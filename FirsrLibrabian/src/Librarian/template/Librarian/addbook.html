@@ -4,7 +4,13 @@
 	<head>
 		<title>图书信息录入页面</title>
 	</head>
-	
+		{% if messages %}
+	        <script>
+	         {% for msg in messages %}
+	             alert('{{ msg.message }}');
+	          {% endfor %}
+	       </script>
+	    {% endif %}
 	<body>
 		<br/>
 		<form action="{% url 'addbook' %}" method="post">
@@ -20,14 +26,7 @@
 					<input type ="submit" value="提交" /> <br/><br/>
 			</fieldset>
 		</form>
-		
-		{% if messages %}
-	        <script>
-	         {% for msg in messages %}
-	             alert('{{ msg.message }}');
-	          {% endfor %}
-	       </script>
-	    {% endif %}
+	
 	    
 		<br/><br/><br/><br/><a href="{% url 'libconduct' %}"  >返回</a><br/><br/><br/><br/><br/><br/>
 	</body>

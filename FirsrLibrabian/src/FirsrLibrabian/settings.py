@@ -83,8 +83,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'FirLirdb',
- #       'USER': 'root',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'USER': 'root',     # 用户名，可以自己创建用户
         'PASSWORD': '123456',  # 密码
 #        'HOST': '192.168.1.121',  # mysql服务所在的主机ip
@@ -130,3 +128,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    ]
+
