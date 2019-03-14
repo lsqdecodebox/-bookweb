@@ -8,7 +8,7 @@ from LibNews.models import LibNews
 
 def index(request):
     if (request.method == 'POST') and (request.POST.get("search") != ''):
-        bookresult = Book.objects.filter(title=request.POST.get("search"))           
+        bookresult = Book.objects.filter(title__contains=request.POST.get("search"))           
     else:
         bookresult = Book.objects.all()
     libnews = LibNews.objects.all()

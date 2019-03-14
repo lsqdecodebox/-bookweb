@@ -9,4 +9,5 @@ urlpatterns = [
     path('libconduct',views.libconduct,name='libconduct'),
     path('modbook',views.modbook,name='modbook'),
     path('newsedit',views.newsedit,name='newsedit'),
+    path('deletebook',views.deletebook,name='deletebook'),
     ]

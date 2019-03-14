@@ -58,7 +58,7 @@ def librarian( request ):
 
 def libconduct(request):
     if (request.method == 'POST') and (request.POST.get("search") != ''): 
-        bookresult = Book.objects.filter(title=request.POST.get("search"))
+        bookresult = Book.objects.filter(title__contains=request.POST.get("search"))
     else:
         bookresult = Book.objects.all()
     return render(request, 'Librarian/libconduct.html', {'bookresult':bookresult})
@@ -68,22 +68,35 @@ def modbook(request):
         if request.POST.get("title"):
             Form = BookForm(request.POST)
             if Form.is_valid():
-                book = Form.save()
-                book.save()
+                book = Book()
+                book.price=request.POST.get("price",None)
+                book.title=request.POST.get("title",None)
+ #               book.pub_date=request.POST.get("pub_date",None)
+                book.publish=request.POST.get("publish",None)
+                book.authors_name=request.POST.get("authors_name",None)
+                book.link=request.POST.get("link",None)
+                Book.objects.filter(nid=request.POST.get("nid")).update(price=book.price,title=book.title,
+                                                                        pub_date=book.pub_date,publish=book.publish,
+                                                                        authors_name=book.authors_name,link=book.link)
                 messages.success(request,'book changed !') 
-                bookalter = Book.objects.get(nid=request.POST.get("nid"))
+                bookalter= Book.objects.get(nid=request.POST.get("nid"))
                 return render(request, 'Librarian/modbook.html', {'bookalter':bookalter} )
         else:        
             bookalter = Book.objects.get(nid=request.POST.get("nid"))
-            print(bookalter.nid)
             return render(request, 'Librarian/modbook.html', {'bookalter':bookalter})
     else:
         return redirect('libconduct')
 
+def deletebook(request):
+    if request.method=='POST' and request.POST["nid"]:
+        Book.objects.get(nid=request.POST.get("nid")).delete()
+        messages.success(request,'book deleted !') 
+    return redirect('modbook')
+     
 
 def searchbook(request):  
     if (request.method == 'POST') and (request.POST.get("search") != ''):
-        bookresult = Book.objects.filter(title=request.POST.get("search"))           
+        bookresult = Book.objects.filter(title__contains=request.POST.get("search"))           
     else:
         bookresult = Book.objects.all()
     return render(request, 'Librarian/searchbook.html', {'bookresult':bookresult})
